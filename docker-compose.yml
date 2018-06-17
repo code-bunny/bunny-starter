@@ -1,0 +1,36 @@
+version: "2"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    volumes:
+      - .:/app:cached
+    command: bundle exec foreman start
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    stdin_open: true
+    tty: true
+    environment:
+      DB_HOST: mysql
+      DB_USERNAME: root
+      DB_PASSWORD: supersecret
+      RAILS_LOG_TO_STDOUT: "true"
+      PORT: 3000
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: supersecret
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - ./.mysql:/var/lib/mysql:cached
+    logging:
+      driver: none
+

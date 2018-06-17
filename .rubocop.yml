@@ -1,0 +1,19 @@
+inherit_from: .hound.yml
+
+Documentation:
+  Enabled: false
+NumericLiterals:
+  MinDigits: 10
+Metrics/BlockLength:
+  Exclude:
+    - app/routes/**/*.rb
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'test/**/*.rb'
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+    - 'test/fixtures/**/*'
+    - 'tmp/**/*'
+    - 'db/**/*'
+  TargetRubyVersion: 2.5

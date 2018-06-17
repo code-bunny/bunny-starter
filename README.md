@@ -1,24 +1,52 @@
-# README
+# Bunny Starter App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Pre setup
 
-Things you may want to cover:
+- Install Docker for Mac/Windows/Linux
 
-* Ruby version
+## Setup
 
-* System dependencies
+### Build the stack
 
-* Configuration
+- Build the apps
 
-* Database creation
+```docker-compose build```
 
-* Database initialization
+- Create the databases
 
-* How to run the test suite
+```docker-compose run --rm web rake db:setup```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Running tests
 
-* Deployment instructions
+- Setup
 
-* ...
+```docker-compose run --rm web rake db:test:prepare```
+
+- Run
+
+```docker-compose run web bash```
+
+- Then run your tests
+
+```RAILS_ENV=test rails test```
+
+- Or your system tests
+
+```RAILS_ENV=test rails test:system```
+
+## Running commands on the service
+
+```docker-compose exec web bash```
+
+## Starting the server
+
+```docker-compose up```
+
+## Binding.pry
+
+To run binding.pry via docker you need to run the individual service as so
+```docker-compose run --service-ports web```
+
+## Oh crap something on docker broke, can't bind ports, meh!
+
+```docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)```
